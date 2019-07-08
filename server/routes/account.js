@@ -23,12 +23,6 @@ router.post('/signup', (req, res) => {
     }
 
     // CHECK PASS LENGTH
-    console.log('===================')
-    console.log('===================')
-    console.log(req.body.username+ " :  username")
-    console.log(req.body.password+ " :  password")
-    console.log('===================')
-    console.log('===================')
     if(req.body.password.length < 4 || typeof req.body.password !== "string") {
         return res.status(400).json({
             error: "BAD PASSWORD",
