@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 
 class Header extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class Header extends Component {
         return ( 
             <nav>
                 <div className="nav-wrapper blue darken-1">
-                    <a className="brand-logo center">Memo App</a>
+                    <Link to="/" className="brand-logo center">Memo App</Link>
 
                     <ul>
                         <li><a><i className="material-icons">search</i></a></li>
@@ -36,4 +37,12 @@ class Header extends Component {
     }
 }
  
+Header.propTypes = {
+    isLoggedIn: React.PropTypes.bool,
+    onLogout: React.PropTypes.func
+}
+Header.defaultProps = {
+    isLoggedIn: false,
+    onLogout: _=>{ console.error("logout function not defined"); }
+}
 export default Header;

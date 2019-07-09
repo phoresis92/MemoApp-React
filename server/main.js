@@ -35,14 +35,20 @@ app.use(session({
 }));
 //===============================================
 app.use('/', express.static(path.join(__dirname, '../public')));
+app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, './../public/index.html'))
+})
 
 app.use('/api', api);
+app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, './../public/index.html'))
+})
 
 //handle error
-app.use((err, req, res, next)=>{
+/*app.use((err, req, res, next)=>{
     console.error(err.stack);
     res.status(500).send('Something broke!');
-})
+})*/
 //===============================================
 app.listen(port, _=>{
     console.log('Express is listening on port', port);
