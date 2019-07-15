@@ -35,7 +35,7 @@ export default function authentication (state = initialState, action){
                     status: { $set: 'SUCCESS' }
                 },
                 status: {
-                    isLoggedin: { $set: true },
+                    isLoggedIn: { $set: true },
                     currentUser: { $set: action.username }
                 }
             });
