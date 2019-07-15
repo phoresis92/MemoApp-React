@@ -8,12 +8,14 @@ const PropsTypes = {
     currentUser: React.PropTypes. string,
     onEdit: React.PropTypes.func,
     onRemove: React.PropTypes.func,
+    onStar: React.PropTypes.func
 }
 const DefaultProps = {
     data: [],
     currentUser: '',
     onEdit: (id, index, contents)=>{ console.error('onEdit is not defined') },
-    onRemove: (id, index)=>{ console.error('onRemove is not defined') }
+    onRemove: (id, index)=>{ console.error('onRemove is not defined') },
+    onStar: (id, index)=>{ console.error('onStar is not defined') }
 }
 
 class MemoList extends Component {
@@ -32,6 +34,8 @@ class MemoList extends Component {
                         index={i}
                         onEdit={this.props.onEdit}
                         onRemove={this.props.onRemove}
+                        onStar={this.props.onStar}
+                        currentUser={this.props.currentUser}
                     ></Memo>
                 )
             })
