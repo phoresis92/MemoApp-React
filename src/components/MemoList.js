@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { Memo } from 'components';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 const PropsTypes = {
     data: React.PropTypes.array,
     currentUser: React.PropTypes. string,
-    onEdit: React.PropTypes.func
+    onEdit: React.PropTypes.func,
+    onRemove: React.PropTypes.func,
 }
 const DefaultProps = {
     data: [],
     currentUser: '',
-    onEdit: (id, index, contents)=>{ console.error('onEdit is not defined')}
+    onEdit: (id, index, contents)=>{ console.error('onEdit is not defined') },
+    onRemove: (id, index)=>{ console.error('onRemove is not defined') }
 }
 
 class MemoList extends Component {
@@ -27,6 +31,7 @@ class MemoList extends Component {
                         key={memo._id}
                         index={i}
                         onEdit={this.props.onEdit}
+                        onRemove={this.props.onRemove}
                     ></Memo>
                 )
             })

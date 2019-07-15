@@ -126,3 +126,37 @@ export function memoEditFailure(error){
     }
 }
 //------------------------------------------------------
+export function memoRemoveRequest(id, index){
+    return dispatch => {
+        dispatch(memoRemove());
+
+        return axios.delete('/api/memo/'+ id)
+        .then((response)=>{
+            dispatch(memoRemoveSuccess(index));
+        })
+        .catch((error)=>{
+            dispatch(memoRemoveFailure(error.response.data.code));
+        })
+    }
+}
+//------------------------------------------------------
+export function memoRemove(){
+    return {
+        type: types.MEMO_REMOVE
+    }
+}
+
+export function memoRemoveSuccess(index){
+    return {
+        type: types.MEMO_REMOVE_SUCCESS,
+        index
+    }
+}
+
+export function memoRemoveFailure(error){
+    return {
+        type: types.MEMO_REMOVE_FAILURE,
+        error
+    }
+}
+//------------------------------------------------------

@@ -154,3 +154,29 @@ a {
     font-weight: bold;
     color: #777;
 }
+
+/* ANIMATION */
+@-webkit-keyframes memo-enter {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+@keyframes memo-enter {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+.memo-enter {
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-name: memo-enter;
+    animation-name: memo-enter;
+}
