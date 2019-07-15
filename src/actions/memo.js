@@ -37,3 +37,23 @@ export function memoPostFailure(error){
     }
 }
 //------------------------------------------------------
+//------------------------------------------------------
+export function memoList(){
+    return {
+        type: types.MEMO_LIST
+    }
+}
+export function memoListSuccess(data, isInitial, listType){
+    return{
+        type: types.MEMO_LIST_SUCCESS,
+        data,
+        isInitial,
+        listType
+    }
+}
+export function memoListFailure(){
+    return {
+        type: types.MEMO_LIST_FAILURE
+    }
+}
+//------------------------------------------------------
