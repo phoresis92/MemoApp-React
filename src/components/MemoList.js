@@ -3,11 +3,13 @@ import { Memo } from 'components';
 
 const PropsTypes = {
     data: React.PropTypes.array,
-    currentUser: React.PropTypes. string
+    currentUser: React.PropTypes. string,
+    onEdit: React.PropTypes.func
 }
 const DefaultProps = {
     data: [],
-    currentUser: ''
+    currentUser: '',
+    onEdit: (id, index, contents)=>{ console.error('onEdit is not defined')}
 }
 
 class MemoList extends Component {
@@ -23,6 +25,8 @@ class MemoList extends Component {
                         data={memo}
                         ownership={(memo.writer === this.props.currentUser)}
                         key={memo._id}
+                        index={i}
+                        onEdit={this.props.onEdit}
                     ></Memo>
                 )
             })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Write, MemoList } from '../components';
-import { memoPostRequest, memoListRequest } from '../actions/memo';
+import { memoPostRequest, memoListRequest, memoEditRequest } from '../actions/memo';
 
 class Home extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ class Home extends Component {
         this.handlePost = this.handlePost.bind(this);
         this.loadNewMemo = this.loadNewMemo.bind(this);
         this.loadOldMemo = this.loadOldMemo.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     loadNewMemo(){
@@ -155,6 +156,42 @@ class Home extends Component {
         })
     }
 
+    /* EDIT MEMO */
+    handleEdit(id, index, contents){
+        return this.props.memoEditRequest(id, index, contents)
+        .then(_=>{
+            if(this.props.editStatus.status === 'SUCCESS'){
+                Materialize.toast('Success!', 2000);
+            }else {
+                /*
+                    ERROR CODES
+                        1: INVALID ID,
+                        2: EMPTY CONTENTS
+                        3: NOT LOGGED IN
+                        4: NO RESOURCE
+                        5: PERMISSION FAILURE
+                */
+               let errorMessage = [
+                   'Something broke',
+                   'Please write something',
+                   'You are not logged in',
+                   'That memo does not exist anymore',
+                   'You do not have Permission'
+               ];
+               let error = this.props.editStatus.error;
+
+               //Notify error
+               let $toastContents = $('<span style="color: #FFB4BA">'+ errorMessage[error -1]+ '</span>');
+               Materialize.toast($toastContents, 2000);
+
+               //If not logged in, refresh the page after 2 seconds
+               if(error === 3){
+                   setTimeout(_=>{location.reload(false)}, 2000)
+               }
+            }
+        })
+    }
+
     render() { 
 
         const write = (<Write onPost={this.handlePost}/>);
@@ -162,7 +199,11 @@ class Home extends Component {
         return (
             <div className="wrapper">
                 { this.props.isLoggedIn ? write : undefined }
-                <MemoList data={this.props.memoData} currentUser={this.props.currentUser} />
+                <MemoList 
+                    data={this.props.memoData} 
+                    currentUser={this.props.currentUser}
+                    onEdit={this.handleEdit}
+                />
             </div>
         );
     }
@@ -177,7 +218,9 @@ const mapStateToProps = (state)=>{
         memoData: state.memo.list.data,
         isLast: state.memo.list.isLast,
 
-        listStatus: state.memo.list.status
+        listStatus: state.memo.list.status,
+
+        editStatus: state.memo.edit
     }
 }
 
@@ -188,6 +231,9 @@ const mapDispatchToProps = (dispatch)=>{
         },
         memoListRequest: (isInitial, listType, id, username) =>{
             return dispatch(memoListRequest(isInitial, listType, id, username));
+        },
+        memoEditRequest: (id, index, contents)=>{
+            return dispatch(memoEditRequest(id, index, contents));
         }
     }
 }

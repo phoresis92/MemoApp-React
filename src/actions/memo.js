@@ -90,3 +90,39 @@ export function memoListFailure(error){
     }
 }
 //------------------------------------------------------
+/* MEMO EDIT */
+export function memoEditRequest(id, index, contents){
+    return dispatch => {
+        dispatch(memoEdit());
+
+        return axios.put('/api/memo/'+ id, {contents})
+        .then((response)=>{
+            dispatch(memoEditSuccess(index, response.data.memo));
+        })
+        .catch((error)=>{
+            dispatch(memoEditFailure(error.response.data.code));
+        })
+    }
+}
+//------------------------------------------------------
+export function memoEdit(){
+    return {
+        type: types.MEMO_EDIT
+    }
+}
+
+export function memoEditSuccess(index, memo){
+    return {
+        type: types.MEMO_EDIT_SUCCESS,
+        index,
+        memo
+    }
+}
+
+export function memoEditFailure(error){
+    return {
+        type: types.MEMO_EDIT_FAILURE,
+        error
+    }
+}
+//------------------------------------------------------

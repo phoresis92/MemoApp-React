@@ -10,6 +10,10 @@ const initialState = {
         status: 'INIT',
         data: [],
         isLast: false
+    },
+    edit: {
+        status: 'INIT',
+        error: -1
     }
 }
 
@@ -74,11 +78,36 @@ export default function memo(state = initialState, action) {
                     })
                 }
             }
-            return state;
+            // return state;
         case types.MEMO_LIST_FAILURE:
             return update(state, {
                 list: {
                     status: { $set: 'FAILURE' }
+                }
+            })
+        // MEMO EDIT
+        case types.MEMO_EDIT:
+            return update(state, {
+                edit: {
+                    status: { $set: 'WAITING' }
+                }
+            })
+        case types.MEMO_EDIT_SUCCESS:
+            return update(state, {
+                edit: {
+                    status: { $set: 'SUCCESS'}
+                },
+                list: {
+                    data: {
+                        [action.index]: { $set: action.memo }
+                    }
+                }
+            })
+        case types.MEMO_EDIT_FAILURE:
+            return update(state, {
+                edit: {
+                    status: { $set: 'FAILURE'},
+                    error: { $set: action.error }
                 }
             })
         default:
