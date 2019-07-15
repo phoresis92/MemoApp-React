@@ -65,6 +65,21 @@ class Memo extends Component {
             belowOrigin: true // Displays dropdown below the button
         })
     }
+
+    shouldComponentUpdate(nextProps, nextState){
+        let current = {
+            props: this.props,
+            state: this.state
+        };
+
+        let next = {
+            props: nextProps,
+            state: nextState
+        }
+
+        let update = JSON.stringify(current) !== JSON.stringify(next);
+        return update;
+    }
     //------------------------------------------------------------------------
     
     toggleEdit(){
@@ -108,6 +123,7 @@ class Memo extends Component {
     }
 
     render() { 
+        console.log(this.props.data)
 
         const { data, ownership } = this.props;
 
