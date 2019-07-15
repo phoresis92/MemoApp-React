@@ -5,6 +5,11 @@ const initialState = {
     post: {
         status: 'INIT',
         error: -1
+    },
+    list: {
+        status: 'INIT',
+        data: [],
+        isLast: false
     }
 }
 
@@ -14,9 +19,10 @@ export default function memo(state = initialState, action) {
     // }
 
     switch(action.type){
-        case types.MEMO_POST:
-            return update(state, {
-                post: {
+        // MEMO POST 
+        case types.MEMO_POST: 
+            return update(state, { 
+                post: { 
                     status: { $set: 'WAITING' },
                     error: { $set: -1 }
                 }
@@ -34,6 +40,30 @@ export default function memo(state = initialState, action) {
                     error: { $set: action.error }
                 }
             });
+        // MEMO LIST
+        case types.MEMO_LIST:
+            return update(state, {
+                list: {
+                    status: { $set: 'WAITING'}
+                }
+            });
+        case types.MEMO_LIST_SUCCESS:
+            if(action.isInitial) {
+                return update(state, {
+                    list: {
+                        status: { $set: 'SUCCESS'},
+                        data: { $set: action.data },
+                        isLast: { $set: action.data.length < 6 }
+                    }
+                })
+            }
+            return state;
+        case types.MEMO_LIST_FAILURE:
+            return update(state, {
+                list: {
+                    status: { $set: 'FAILURE' }
+                }
+            })
         default:
             return state;
     }
