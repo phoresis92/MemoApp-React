@@ -109,7 +109,7 @@ router.post('/signin', (req, res) => {
 /*
     GET CURRENT USER INFO GET /api/account/getInfo
 */
-router.get('/getinfo', (req, res) => {
+router.get('/getInfo', (req, res) => {
     if(typeof req.session.loginInfo === "undefined") {
         return res.status(401).json({
             error: 1
