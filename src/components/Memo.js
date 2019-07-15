@@ -24,9 +24,13 @@ class Memo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {
+            editMode: false
+        }
+        this.toggleEdit = this.toggleEdit.bind(this);
     }
 
+    //------------------------------------------------------------------------
     componentDidUpdate() {
         // triggered when logged in
         $('#dropdown-button-'+this.props.data._id).dropdown({
@@ -39,7 +43,15 @@ class Memo extends Component {
             belowOrigin: true // Displays dropdown below the button
         })
     }
+    //------------------------------------------------------------------------
     
+    toggleEdit(){
+        this.setState({
+            editMode: !this.state.editMode
+        })
+        console.log(this.state.editMode)
+    }
+
     render() { 
 
         const { data, ownership } = this.props;
@@ -52,7 +64,7 @@ class Memo extends Component {
                     data-activates={`dropdown-${data._id}`}
                 ><i className="material-icons icon-button">more_vert</i></a>
                 <ul id={`dropdown-${data._id}`} className="dropdown-content">
-                    <li><a>Edit</a></li>
+                    <li><a onClick={this.toggleEdit}>Edit</a></li>
                     <li><a>Remove</a></li>
                 </ul>
             </div>

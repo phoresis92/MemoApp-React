@@ -52,13 +52,20 @@ export function memoListRequest(isInitial, listType, id, username){
         dispatch(memoList());
 
         let url = '/api/memo';
+        if(typeof username === "undefined"){
+            // username not given, load public memo
+            url = isInitial ? url : `${url}/${listType}/${id}`;
+            console.log(url)
+        }else {
+            
+        }
 
         return axios.get(url)
         .then((response)=>{
             dispatch(memoListSuccess(response.data, isInitial, listType));
         })
         .catch((error=>{
-            dispatch(memoListFailure());
+            dispatch(memoListFailure(error.response.data.code));
         }))
     }
 }
@@ -76,9 +83,10 @@ export function memoListSuccess(data, isInitial, listType){
         listType
     }
 }
-export function memoListFailure(){
+export function memoListFailure(error){
     return {
-        type: types.MEMO_LIST_FAILURE
+        type: types.MEMO_LIST_FAILURE,
+        error
     }
 }
 //------------------------------------------------------
