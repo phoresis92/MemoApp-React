@@ -1,14 +1,13 @@
 
-1. package.json 설정하기
+<h1>Memo App</h1>
 
-npm init
+1. react-redux
+2. react-thunk
+3. react-router
+4. axios
+5. react-addons-update
 
-npm install --save react react-dom
-npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react react-hot-loader webpack webpack-dev-server
-
-script => "dev-server" : "webpack-dev-server"
-npm i -D webpack-cli
-
-2. gitignore.io 이용하여 ignore 설정
-
-3. public, src 기본설정
+![main](./readmeImg/memoApp-1.png)
+![login](./readmeImg/memoApp-2.png)
+![directory1](./readmeImg/memoApp-3.png)
+![directory2](./readmeImg/memoApp-4.png)
