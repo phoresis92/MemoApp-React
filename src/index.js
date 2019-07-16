@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // Router
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // container components
-import { App, Home, Login, Register } from 'containers';
+import { App, Home, Login, Register, Wall } from 'containers';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -29,6 +29,7 @@ ReactDOM.render(
             <Route path="home" component={Home}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
+            <Route path="wall/:username" component={Wall}/>
         </Route>
     </Router>
     </Provider>, rootElement

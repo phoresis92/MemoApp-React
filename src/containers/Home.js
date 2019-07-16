@@ -4,6 +4,9 @@ import { Write, MemoList } from '../components';
 import { memoPostRequest, memoListRequest, memoEditRequest,
 memoRemoveRequest, memoStarRequest } from '../actions/memo';
 
+const PropTypes = { username: React.PropTypes.string };
+const DefaultProps = { username: undefined };
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -27,10 +30,10 @@ class Home extends Component {
         }
         //If page is empty, Do the Initial loading
         if(this.props.memoData.length === 0){
-            return this.props.memoListRequest(true); 
+            return this.props.memoListRequest(true, undefined, undefined, this.props.username); 
         }
 
-        return this.props.memoListRequest(false, 'new', this.props.memoData[0]._id);
+        return this.props.memoListRequest(false, 'new', this.props.memoData[0]._id, this.props.username);
     }
 
     loadOldMemo(){
@@ -46,7 +49,7 @@ class Home extends Component {
         let lastId = this.props.memoData[this.props.memoData.length -1]._id;
 
         //Start Request
-        return this.props.memoListRequest(false, 'old', lastId)
+        return this.props.memoListRequest(false, 'old', lastId, this.props.username)
         .then(_=>{
             // If it is last page, Notify
             if(this.props.isLast){
@@ -62,7 +65,7 @@ class Home extends Component {
         const loadMemoLoop = _=>{
             this.loadNewMemo()
             .then(_=>{
-                this.memoLoaderTimeoutId = setTimeout(loadMemoLoop, 5000);
+                this.memoLoaderTimeoutId = setTimeout(loadMemoLoop, 100000);
             })
         }
         
@@ -81,9 +84,10 @@ class Home extends Component {
             }
         }
 
-        this.props.memoListRequest(true)
+        this.props.memoListRequest(true, undefined, undefined, this.props.username)
         .then(_=>{
             //console.log(this.props.memoData)
+            loadUntillScrollable();
             loadMemoLoop();
         })
 
@@ -288,6 +292,9 @@ class Home extends Component {
         );
     }
 }
+
+Home.propTypes = PropTypes;
+Home.defaultProps = DefaultProps;
  
 const mapStateToProps = (state)=>{
     return {

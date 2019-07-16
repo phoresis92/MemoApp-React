@@ -155,28 +155,14 @@ a {
     color: #777;
 }
 
-/* ANIMATION */
-@-webkit-keyframes memo-enter {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+/* WALL */
+.empty-page {
+    font-size: 30px;
+    text-align: center;
+    color: #4D4D4D;
 }
 
-@keyframes memo-enter {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-}
-
-.memo-enter {
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s;
-    -webkit-animation-name: memo-enter;
-    animation-name: memo-enter;
+.wall-info {
+    font-size: 30px;
+    text-align: center;
 }
