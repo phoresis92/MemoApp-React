@@ -1,8 +1,6 @@
 
 <h1>Memo App</h1>
-================
-MongoDB, Node.js, React
------------------------
+**MongoDB, Node.js, React**
 
 1. react-redux
 2. react-thunk
